@@ -207,6 +207,7 @@ def deploy_mcp_server(config: McpServerConfig) -> Tuple[bool, str, Optional[str]
         container = client.V1Container(
             name="mcp-server",
             image=f"{IDA_MCP_SERVER_IMAGE_REPO}:{config.mcp_version}",
+            image_pull_policy="Always",  # Always pull to get latest fixes
             ports=[client.V1ContainerPort(container_port=IDA_MCP_SERVER_PORT)],
             env=[
                 # Proxy connection - MCP server uses these to reach IDA via proxy
