@@ -225,12 +225,12 @@ def deploy_mcp_server(config: McpServerConfig) -> Tuple[bool, str, Optional[str]
                 limits={"cpu": "500m", "memory": "512Mi"}
             ),
             liveness_probe=client.V1Probe(
-                http_get=client.V1HTTPGetAction(path=IDA_MCP_SERVER_HEALTH_PATH, port=IDA_MCP_SERVER_PORT),
+                tcp_socket=client.V1TCPSocketAction(port=IDA_MCP_SERVER_PORT),
                 initial_delay_seconds=10,
                 period_seconds=30
             ),
             readiness_probe=client.V1Probe(
-                http_get=client.V1HTTPGetAction(path=IDA_MCP_SERVER_HEALTH_PATH, port=IDA_MCP_SERVER_PORT),
+                tcp_socket=client.V1TCPSocketAction(port=IDA_MCP_SERVER_PORT),
                 initial_delay_seconds=5,
                 period_seconds=10
             )
